@@ -4,7 +4,11 @@ import fisica.main.*;
 import fisica.mundo.*;
 
 public class ResolverColisiones {
-    // Resuelve una colisión usando los datos almacenados en contactoColision.
+    /* 
+        Resuelve una colisión usando los datos almacenados en contactoColision.
+        Corrige el traslape separando los cuerpos
+        Aplica un impulso para cambiar sus velocidades 
+    */
     public static void resolver(ContactoColision m){
         Cuerpo A = m.A, B = m.B; // Cuerpos involucrados en la colisión
         

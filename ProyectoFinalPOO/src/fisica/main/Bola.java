@@ -65,6 +65,7 @@ public class Bola extends Cuerpo {
         return tipo;
     }
 
+    //  Carga las imagenes que representan cada tipo de bola desde recursos
     private void getImageBola(){
         try{
             

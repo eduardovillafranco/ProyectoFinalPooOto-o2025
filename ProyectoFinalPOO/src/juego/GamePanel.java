@@ -53,7 +53,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     }
 
-    // Inicia el mundo físico: crea la mesa, bola, asigna material y color
+    // Inicia el mundo físico: crea la mesa, bola, taco, jugadores y la lógica de partida
     public void inicializarMundo(){
         int margenExterior = 20;
         int anchoPanelInfo = 140;
@@ -167,12 +167,14 @@ public class GamePanel extends JPanel implements Runnable{
         taco = new Taco(bolaBlanca, Material.MADERA);
     }
 
+    // Registra las bolas que entran a las troneras
     private void conectarEventosTronera(){
         mundo.setEventoTroneraListener(bola -> onBolaEmbolsada(bola));
     }
 
+    // Registra la bola en la partida y la elimina del mundo físico.
     private void onBolaEmbolsada(Bola bola){
-        partida.registrasBolaEnTronera(bola);
+        partida.registrarBolaEnTronera(bola);
     }
 
     // Inicia el hilo del juego, el cual ejecuta el game loop
@@ -229,6 +231,7 @@ public class GamePanel extends JPanel implements Runnable{
         antesQuietas = ahoraQuietas;
     }
 
+    //  Procesa la lógica cada vez que acaba un tiro
     private void procesarFinDeTiro(){
         Jugador ganador = partida.finDeTiro();
         if (ganador != null){
@@ -236,6 +239,7 @@ public class GamePanel extends JPanel implements Runnable{
         }
     }
 
+    // Finaliza la partida mostrando quien ganó y detiene el juego
     public void terminarPartida(Jugador ganador){
         Jugador perdedor = (ganador == partida.getJugador1()) ? partida.getJugador2() : partida.getJugador1();
         String mensaje = "Juego terminado\n\nGanador: " + ganador.getNombre()
@@ -266,6 +270,7 @@ public class GamePanel extends JPanel implements Runnable{
         }
     }
 
+    // Reinicia el juego
     private void reiniciarPartida() {
         // Resetear el mundo físico
         mundo = new MundoFisico();
@@ -290,6 +295,7 @@ public class GamePanel extends JPanel implements Runnable{
         };
     }
 
+    // Funcion que dibuja el panel izquierdo de información de la partida
     private void dibujarPanelInfo(Graphics2D g2) {
         if (mesa == null) return;
 
@@ -351,10 +357,8 @@ public class GamePanel extends JPanel implements Runnable{
         }
     }
 
-
-
     // Estandar en JPanel
-    // Dibuja todos los elementos del juego:
+    // Dibuja todos los elementos del juego
     @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);

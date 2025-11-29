@@ -3,7 +3,7 @@ package fisica.colision_basica;
 import fisica.main.*;
 
 public class DetectorColisiones {
-    // Detecta y describe una colisión entre una bola y las paredes de la mesa.
+    // Detecta si existe una colisión entre una bola y las paredes de la mesa.
     public static boolean bolaVsMesa(Bola c, Mesa mesa, ContactoColision m){
         // Centro actual de la bola
         Vec2D posicion = c.getPosicion();
@@ -15,8 +15,8 @@ public class DetectorColisiones {
         double izquierda = mesa.getBordeIzquierdo(), derecha = mesa.getBordeDerecho(),
         arriba = mesa.getBordeSuperior(), abajo = mesa.getBordeInferior();
 
-        // Cuánto se "mete" la bola en cada pared.
-        // Un valor > 0 indica que ya se encuentra dentro de la zona de la pared.
+        /*Cuánto se "mete" la bola en cada pared.
+        Un valor > 0 indica que ya se encuentra dentro de la zona de la pared. */
         double penetracionParedIzq = izquierda - (posicion.x - radio);
         double penetracionParedDer = (posicion.x + radio) - derecha;
         double penetracionParedSup = arriba - (posicion.y - radio);
@@ -64,6 +64,7 @@ public class DetectorColisiones {
         return false;
     }
 
+    // Detecta si existe colisión entre dos bolas cuando sus radios se sobreponen
     public static boolean bolaVsBola(Bola a, Bola b, ContactoColision contacto){
         // Vector que va desde el centro de A al centro de B
         Vec2D vectorCentroA2CentroB = b.getPosicion().restaVectores(a.getPosicion());
@@ -76,10 +77,10 @@ public class DetectorColisiones {
         // no existe colisión
         if (distanciaEntreCentros >= sumaDeRadios) return false;
 
-        // Colisión
+        // Cálculo de la colisión
         contacto.vectorNormal = (distanciaEntreCentros == 0) ? Vec2D.crearVector(1, 0) : vectorCentroA2CentroB.escalarXVector(1.0/distanciaEntreCentros);
         
-        // Contacto
+        // Cáluclo del que tanto se sobrepineron sus radios
         contacto.traslape = sumaDeRadios - distanciaEntreCentros;
 
         // Cálculo de la velocidad relativa, proyectada sobre la normal

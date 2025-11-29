@@ -1,5 +1,9 @@
 package fisica.main;
 
+/*
+    Material físico que define cómo se comporta una bola o el taco
+    al colisionar: restitución (rebote) y amortiguamiento (pérdida de energía).
+ */
 public enum Material {
     CAUCHO(0.96, 0.35),
     MADERA(2, 0.5);

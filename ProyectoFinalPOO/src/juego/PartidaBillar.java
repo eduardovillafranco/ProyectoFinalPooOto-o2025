@@ -19,12 +19,17 @@ public class PartidaBillar {
     private final List<Bola> bolasEnTroneraEnTurno = new ArrayList<>();
     private boolean blancaEnEsteTurno = false;
 
+    // Crea la partida del billar, creando a los dos jugadores y estableciendo la partida por default
     public PartidaBillar(){
         this.j1 = new Jugador("Jugador 1");
         this.j2 = new Jugador("Jugador 2");
         reiniciar();
     }
 
+    /*
+        Reinicia completamente la partida:
+        - limpia grupos, bolas restantes y turno actual.
+    */
     public void reiniciar(){
         lisasRestantes = 7;
         rayadasRestantes = 7;
@@ -74,14 +79,19 @@ public class PartidaBillar {
 
     // Metodos para GamePanel
 
-    // Detecta cada vez que alguna bola entra en una tronera
-    public void registrasBolaEnTronera(Bola bola){
+    // Detecta cada vez que alguna bola entra en una tronera y actualiza el estado de la partida
+    public void registrarBolaEnTronera(Bola bola){
         if (partidaTerminada) return;
 
         if ("blanca".equals(bola.getId())) blancaEnEsteTurno = true;
         else bolasEnTroneraEnTurno.add(bola);
     }
 
+    /*
+        Lógica que se ejecuta al finalizar un tiro:
+        Decide si el jugador conserva el turno, si cambia de jugador
+        o si la partida termina (por meter la 8 antes o después de tiempo).
+    */
     public Jugador finDeTiro(){
         if (partidaTerminada) return null;
 
@@ -185,23 +195,25 @@ public class PartidaBillar {
         return null;    // La partida continúa
     }
 
-    // ========= Auxiliares internos =========
-
+    // Limpia las variales internas para preparar el siguiente tiro
     private void limpiarEstado() {
         bolasEnTroneraEnTurno.clear();
         blancaEnEsteTurno = false;
     }
 
+    // Asigna el grupo(lisas o rayadas) a un jugador, despues de meter su priemra bola
     private void setGrupos(Jugador jugador, GrupoBola grupo) {
         jugador.setGrupo(grupo);
         Jugador otro = obtenerOponente(jugador);
         otro.setGrupo(grupo == GrupoBola.LISAS ? GrupoBola.RAYADAS : GrupoBola.LISAS);
     }
 
+    // Devueleve el oponente del jugador indicado
     private Jugador obtenerOponente(Jugador jugador) {
         return (jugador == j1) ? j2 : j1;
     }
 
+    // Resta una bola al grupo indicado en caso de haber metido una bola
     private void descontarBolaDeGrupo(GrupoBola grupo) {
         if (grupo == GrupoBola.LISAS && lisasRestantes > 0) {
             lisasRestantes--;

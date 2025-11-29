@@ -119,15 +119,6 @@ public abstract class Cuerpo implements Cloneable, Actualizable, AplicarFuerza{
         this.posicion = p;
     }
 
-
-    @Override 
-    public Cuerpo clone(){
-        try { 
-            return (Cuerpo) super.clone(); 
-        } catch(CloneNotSupportedException e){ 
-            throw new AssertionError(e); 
-        }
-    }
     @Override 
     public String toString(){
         return id + " posicion=" + posicion + " velocidad=" + velocidad;

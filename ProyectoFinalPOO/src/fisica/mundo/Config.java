@@ -2,6 +2,9 @@ package fisica.mundo;
 
 import fisica.main.Vec2D;
 
+/*
+    Clase de configuración global de la simulación física.
+ */
 public class Config {
     // Evitamos crear instancias de la clase con un constructor privado
     private Config(){
@@ -20,7 +23,7 @@ public class Config {
     public static final double PORCENTAJE_CORRECCION_PENETRACION = 0.8;
 
     // Tolerancia mínima de penetración permitida antes de aplicar corrección.
-    // Evita microcorrecciones constantes por errores numérico
+    // Evita microcorrecciones constantes por errores numéricos
     public static final double TOLERANCIA_PENETRACION = 0.01;
 
     // Vector de gravedad global del mundo.

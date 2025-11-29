@@ -10,6 +10,7 @@ import fisica.main.Vec2D;
 import java.util.ArrayList;
 import java.util.List;
 
+/* Contiene y gestiona todos los cuerpos de la mesa de billar */
 public class MundoFisico {
     private final List<Cuerpo> cuerpos = new ArrayList<>();
     private final Integrador integrador = (obj, dt) -> obj.actualizar(dt);
@@ -95,9 +96,9 @@ public class MundoFisico {
             for (int indiceCuerpoB = indiceCuerpoA + 1; indiceCuerpoB <  cantidadCuerpos; indiceCuerpoB++){
                 Cuerpo cuerpoB = cuerpos.get(indiceCuerpoB);
                 if (cuerpoA instanceof Bola bolaA && cuerpoB instanceof Bola bolaB){
-                    ContactoColision contactoEnteBolas = new ContactoColision(bolaA, bolaB);
-                    if(DetectorColisiones.bolaVsBola(bolaA, bolaB, contactoEnteBolas)){
-                        ResolverColisiones.resolver(contactoEnteBolas);
+                    ContactoColision contactoEntreBolas = new ContactoColision(bolaA, bolaB);
+                    if(DetectorColisiones.bolaVsBola(bolaA, bolaB, contactoEntreBolas)){
+                        ResolverColisiones.resolver(contactoEntreBolas);
                     }
                 }
             }
