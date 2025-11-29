@@ -217,6 +217,14 @@ public class GamePanel extends JPanel implements Runnable{
         return true;
     }
 
+    //Detiene todas las bolas cuando la mayoría baja el umbral de velocidad
+    private void detenerTodas(){
+        for (Cuerpo c : mundo.getCuerpos()){
+            if (c instanceof Bola bola){
+                bola.setVel(Vec2D.crearVectorNulo());
+            }
+        }
+    }
 
     // Actualiza el estado del juego en cada frame lógico:
     public void update(){
@@ -225,6 +233,9 @@ public class GamePanel extends JPanel implements Runnable{
         mundo.actualizarSimulacion(Config.DELTA_TIME);
 
         boolean ahoraQuietas = todasDormidas();
+        if(ahoraQuietas){
+            detenerTodas();
+        }
 
         if(!antesQuietas && ahoraQuietas) procesarFinDeTiro();
 
